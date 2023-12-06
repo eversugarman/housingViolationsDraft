@@ -4,13 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} violation</title>
+    <title>violations</title>
     <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" />
 </head>
 
 <body>
-    <h1>{{title}} violation</h1>
-    <p> {{status}} </p>
+
+
+<!-- 
+    each data looks like this:
+    {'violationid': '13802557', 'buildingid': '357358', 'registrationid': '322968', 'boroid': '3', 'boro': 'BROOKLYN', 'housenumber': '940', 'lowhousenumber': '940', 'highhousenumber': '940', 'streetname': 'PROSPECT PLACE', 'streetcode': '72730', 'zip': '11213', 'block': '1235', 'lot': '31', 'class': 'C', 'inspectiondate': '2020-09-05T00:00:00.000', 'approveddate': '2020-09-06T00:00:00.000', 'originalcertifybydate': '2020-09-21T00:00:00.000', 'originalcorrectbydate': '2020-09-14T00:00:00.000', 'certifieddate': '2020-09-21T00:00:00.000', 'ordernumber': '672', 'novid': '6950634', 'novdescription': 'SECTION 27-2033 ADM CODE PROVIDE READY ACCESS TO BUILDINGS HEATING SYSTEM DOOR LOCKED AT CELLAR', 'novissueddate': '2020-09-08T00:00:00.000', 'currentstatusid': '21', 'currentstatus': 'NOT COMPLIED WITH', 'currentstatusdate': '2020-09-29T00:00:00.000', 'novtype': 'Original', 'violationstatus': 'Open', 'rentimpairing': 'N', 'latitude': '40.674057', 'longitude': '-73.945589', 'communityboard': '8', 'councildistrict': '36', 'censustract': '341', 'bin': '3031295', 'bbl': '3012350031', 'nta': 'Crown Heights North'} -->
+
+    {% if data|length > 0 %}
+
+        <table>
+        {% for result in data %}
+            <tr>
+                <td>{{ result['violationid'] }}</td>
+                
+                <td>{{ result['housenumber'] }}</td>
+                <td>{{ result['novdescription'] }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+
+    {% else %}
+        
+        <h3>No Results, try again:</h3>
+        <form action="/violations">
+            <div>Fill out as many fields as possible:</div>
+            <input type="text" name="housenumber" id="housenumber" value="{{House_Number}}" placeholder="Enter a house number" />
+
+            <input type="text" name="streetname" id="streetname" value="{{Street_Name}}" placeholder="Enter a street name" />
+
+            <input type="text" name="boro" id="boro" value="{{Boro_Name}}" placeholder="Enter a boro" />
+            <button type="submit">Submit</button>
+            
+            
+
+        </form>        
+
+
+
+    {% endif %}
+
+
+
+
+
 
 </body>
 
