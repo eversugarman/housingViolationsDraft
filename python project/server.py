@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from violations import get_full_data
+
 from waitress import serve
 
 import requests
