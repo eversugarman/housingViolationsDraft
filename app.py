@@ -4,6 +4,9 @@ from waitress import serve
 
 import requests
 
+import os
+
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,7 +14,7 @@ app = Flask(__name__)
 def index ():
     return render_template("index.html")
 headers = {
-  'X-App-Token': 'cKxtMsywux5IuCCh7aixGChhT'
+  'X-App-Token': os.environ.get('API_KEY')
 }
 
 
